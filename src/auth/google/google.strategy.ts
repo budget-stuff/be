@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, VerifyCallback } from 'passport-google-oauth20';
+import { env } from 'process';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
@@ -9,8 +10,9 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
 		super({
 			clientID: process.env.GOOGLE_CLIENT_ID,
 			clientSecret: process.env.GOOGLE_SECRET,
-			callbackURL: 'http://localhost:3000/api/auth/redirect',
-			// callbackURL: 'https://budget-stuff.site/api/auth/redirect',
+			callbackURL:
+				(env.APP_ADDRESS || 'http://localhost:3000') +
+				'/api/auth/redirect',
 			scope: ['email', 'profile'],
 		});
 	}
