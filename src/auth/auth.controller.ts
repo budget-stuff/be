@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { Response, Request } from 'express';
 import { JwtAuthGuard } from './jwt/jwt-auth.guard';
 import { UserData } from 'src/users/users.schema';
+import { env } from 'process';
 
 @Controller()
 export class AuthController {
@@ -29,7 +30,7 @@ export class AuthController {
 			if (req.hostname === 'localhost') {
 				response.redirect('http://localhost:5173');
 			} else {
-				response.redirect(req.headers.host || 'http://localhost:5173');
+				response.redirect(env.APP_ADDRESS || 'http://localhost:5173');
 			}
 		});
 	}
