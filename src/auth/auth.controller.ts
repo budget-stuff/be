@@ -30,6 +30,7 @@ export class AuthController {
 			if (req.hostname === 'localhost') {
 				response.redirect('http://localhost:5173');
 			} else {
+				this.logger.log('address' + env.APP_ADDRESS);
 				response.redirect(env.APP_ADDRESS || 'http://localhost:5173');
 			}
 		});
