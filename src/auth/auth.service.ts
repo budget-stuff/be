@@ -13,7 +13,7 @@ export class AuthService {
 		private jwtService: JwtService,
 	) {}
 
-	login(user: UserData | null): Promise<LoginData> {
+	login(user: UserData | undefined): Promise<LoginData> {
 		if (!user) {
 			throw new BadRequestException('Unauthenticated');
 		}

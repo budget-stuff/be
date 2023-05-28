@@ -1,17 +1,10 @@
-import {
-	Controller,
-	Get,
-	Logger,
-	Req,
-	Request,
-	Res,
-	UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Logger, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AppController } from 'src/app.controller';
 import { AuthService } from './auth.service';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { JwtAuthGuard } from './jwt/jwt-auth.guard';
+import { UserData } from 'src/users/users.schema';
 
 @Controller()
 export class AuthController {
@@ -27,19 +20,23 @@ export class AuthController {
 	@Get('redirect')
 	@UseGuards(AuthGuard('google'))
 	googleAuthRedirect(
-		@Request() req: any,
-		@Res({ passthrough: true }) response: Response,
+		@Req() req: Request,
+		@Res({ passthrough: false }) response: Response,
 	) {
-		return this.authService.login(req.user).then((data) => {
+		return this.authService.login(req.user as UserData).then((data) => {
 			response.cookie('jwt', data?.accessToken);
 
-			return data.user;
+			if (req.hostname === 'localhost') {
+				response.redirect('http://localhost:5173');
+			} else {
+				response.redirect(req.headers.host || 'http://localhost:5173');
+			}
 		});
 	}
 
 	@UseGuards(JwtAuthGuard)
 	@Get('profile')
-	async getUser(@Request() req: any) {
+	async getUser(@Req() req: any) {
 		return req.user;
 	}
 }

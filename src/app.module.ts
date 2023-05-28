@@ -12,7 +12,7 @@ import { UsersModule } from './users/users.module';
 		MongooseModule.forRoot(
 			// в проде докер кинет в окружение имся хоста
 			// это нужно для доступа БЕ к БД т.к у докера своя внутренняя сеть
-			`mongodb://${env.DB_HOST ?? '127.0.0.1'}:27017/ksenigdb`,
+			`mongodb://${env.DB_HOST ?? '127.0.0.1'}:27017/db`,
 		),
 		AuthModule,
 		UsersModule,
