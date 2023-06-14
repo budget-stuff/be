@@ -6,23 +6,6 @@ import {
 } from '@nestjs/platform-fastify';
 import fastifyCookie from '@fastify/cookie';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-if (import.meta.env.PROD) {
-	async function bootstrap() {
-		const app = await NestFactory.create<NestFastifyApplication>(
-			AppModule,
-			new FastifyAdapter(),
-		);
-
-		app.register(fastifyCookie);
-
-		await app.listen(3000, '0.0.0.0');
-	}
-
-	bootstrap();
-}
-
 const bootstrap = (): Promise<NestFastifyApplication> => {
 	return NestFactory.create<NestFastifyApplication>(
 		AppModule,
@@ -47,5 +30,13 @@ const bootstrap = (): Promise<NestFastifyApplication> => {
 		return app;
 	});
 };
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+if (import.meta.env.PROD) {
+	bootstrap().then((app) => {
+		app.listen(3000, '0.0.0.0');
+	});
+}
 
 export const viteNodeApp = bootstrap();
