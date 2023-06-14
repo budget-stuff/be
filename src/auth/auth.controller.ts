@@ -1,37 +1,37 @@
 import { Controller, Get, Logger, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { AppController } from 'src/app.controller';
 import { AuthService } from './auth.service';
-import { Response, Request } from 'express';
 import { JwtAuthGuard } from './jwt/jwt-auth.guard';
-import { UserData } from 'src/users/users.schema';
 import { env } from 'process';
+import { UserData } from 'src/users/users.models';
+import type { FastifyRequest, FastifyReply } from 'fastify';
 
 @Controller()
 export class AuthController {
-	private readonly logger = new Logger(AppController.name);
+	private readonly logger = new Logger(AuthController.name);
 
 	constructor(private authService: AuthService) {}
 
 	@Get()
 	@UseGuards(AuthGuard('google'))
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	async googleAuth(@Req() req: any) {}
+	async googleAuth() {}
 
 	@Get('redirect')
 	@UseGuards(AuthGuard('google'))
 	googleAuthRedirect(
-		@Req() req: Request,
-		@Res({ passthrough: false }) response: Response,
+		@Req() req: FastifyRequest,
+		@Res({ passthrough: false }) response: FastifyReply,
 	) {
-		return this.authService.login(req.user as UserData).then((data) => {
+		// юзер оказывается в запросе после гугл авторизации (см. google.strategy.ts)
+		const userData = (req as any).user as UserData;
+
+		return this.authService.login(userData).then((data) => {
 			response.cookie('jwt', data?.accessToken);
 
-			if (req.hostname === 'localhost') {
-				response.redirect('http://localhost:5173');
-			} else {
-				response.redirect(env.APP_ADDRESS || 'http://localhost:5173');
-			}
+			response
+				.status(302)
+				.redirect(env.APP_ADDRESS || 'http://localhost:5173');
 		});
 	}
 

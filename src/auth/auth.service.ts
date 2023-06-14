@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserData } from 'src/users/users.schema';
-import { UsersService } from 'src/users/users.service';
+import { UserData } from '../users/users.models';
+import { UsersService } from '../users/users.service';
 import { LoginData } from './models/login-data';
 
 @Injectable()
@@ -24,6 +24,7 @@ export class AuthService {
 				if (registeredUser) {
 					const payload = {
 						email: registeredUser.email,
+						id: registeredUser.id,
 					};
 
 					return {
@@ -40,6 +41,7 @@ export class AuthService {
 		return this.usersService.create(user).then((createdUser) => {
 			const payload = {
 				email: createdUser.email,
+				id: (createdUser as UserData).id,
 			};
 			return {
 				accessToken: this.jwtService.sign(payload),
