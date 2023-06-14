@@ -24,7 +24,7 @@ export class AuthService {
 				if (registeredUser) {
 					const payload = {
 						email: registeredUser.email,
-						id: registeredUser.id,
+						_id: registeredUser._id,
 					};
 
 					return {
@@ -41,7 +41,7 @@ export class AuthService {
 		return this.usersService.create(user).then((createdUser) => {
 			const payload = {
 				email: createdUser.email,
-				id: (createdUser as UserData).id,
+				_id: (createdUser as UserData)._id,
 			};
 			return {
 				accessToken: this.jwtService.sign(payload),

@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Category, CategoryData } from './categories.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class CategoriesService {
+	private readonly logger = new Logger(CategoriesService.name);
 	constructor(
 		@InjectModel(Category.name)
 		private readonly categoryModel: Model<Category>,

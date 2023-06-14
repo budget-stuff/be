@@ -30,6 +30,7 @@ const bootstrap = (): Promise<NestFastifyApplication> => {
 		return app;
 	});
 };
+
 export const viteNodeApp = bootstrap();
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

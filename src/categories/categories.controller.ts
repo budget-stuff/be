@@ -27,7 +27,7 @@ export class CategoriesController {
 		@Req() req: FastifyRequest<{ Body: CategoryData }>,
 	): Promise<CategoryData> {
 		return this.categoriesService
-			.create(req.body, req.user?.id)
+			.create(req.body, req.user?._id)
 			.catch((err) => {
 				throw new HttpException(err.message, 400, {
 					cause: new Error(err.name),
@@ -41,7 +41,7 @@ export class CategoriesController {
 		@Req() req: FastifyRequest,
 	): Promise<CategoryData[] | null | undefined> {
 		this.logger.log(req.user);
-		return this.categoriesService.getAll(req.user.id);
+		return this.categoriesService.getAll(req.user._id);
 	}
 
 	@UseGuards(JwtAuthGuard)
@@ -50,7 +50,7 @@ export class CategoriesController {
 		@Param('id') id: string,
 		@Req() req: FastifyRequest,
 	): Promise<CategoryData | null | undefined> {
-		return this.categoriesService.findById(id, req.user.id);
+		return this.categoriesService.findById(id, req.user._id);
 	}
 
 	@UseGuards(JwtAuthGuard)
@@ -59,7 +59,7 @@ export class CategoriesController {
 		@Param('id') id: string,
 		@Req() req: FastifyRequest,
 	): Promise<CategoryData | null | undefined> {
-		return this.categoriesService.delete(id, req.user.id);
+		return this.categoriesService.delete(id, req.user._id);
 	}
 
 	@UseGuards(JwtAuthGuard)
@@ -68,6 +68,6 @@ export class CategoriesController {
 		@Param('id') id: string,
 		@Req() req: FastifyRequest<{ Body: CategoryData }>,
 	): Promise<CategoryData | null> {
-		return this.categoriesService.update(req.body, id, req.user.id);
+		return this.categoriesService.update(req.body, id, req.user._id);
 	}
 }
