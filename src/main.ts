@@ -30,13 +30,12 @@ const bootstrap = (): Promise<NestFastifyApplication> => {
 		return app;
 	});
 };
+export const viteNodeApp = bootstrap();
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 if (import.meta.env.PROD) {
-	bootstrap().then((app) => {
+	viteNodeApp.then((app) => {
 		app.listen(3000, '0.0.0.0');
 	});
 }
-
-export const viteNodeApp = bootstrap();
