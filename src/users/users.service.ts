@@ -22,8 +22,8 @@ export class UsersService {
 		return this.userModel.create(data);
 	}
 
-	delete(username: string): Promise<any> {
-		return this.userModel.deleteOne({ username });
+	delete(email: string): Promise<any> {
+		return this.userModel.deleteOne({ email });
 	}
 
 	update(data: UserData, _id: string): Promise<UserData | null> {

@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { PlanService } from './plan.service';
 import { PlanData } from './plan.schema';
-import { FastifyRequest } from 'fastify';
+import type { FastifyRequest } from 'fastify';
 import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard';
 
 @Controller()
