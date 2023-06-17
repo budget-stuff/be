@@ -8,10 +8,10 @@ import {
 	Request,
 	UseGuards,
 } from '@nestjs/common';
-import { User } from './users.schema';
-import { UsersService } from './users.service';
-import { JwtAuthGuard } from '../../src/auth/jwt/jwt-auth.guard';
-import type { UserData } from './users.models';
+import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard.js';
+import type { UserData } from './users.models.js';
+import type { UserDocument } from './users.schema.js';
+import { UsersService } from './users.service.js';
 
 @Controller()
 export class UsersController {
@@ -27,7 +27,9 @@ export class UsersController {
 
 	@UseGuards(JwtAuthGuard)
 	@Get(':email')
-	getUser(@Param('email') email: string): Promise<User | null | undefined> {
+	getUser(
+		@Param('email') email: string,
+	): Promise<UserDocument | null | undefined> {
 		return this.usersService.findByEmail(email);
 	}
 
@@ -35,7 +37,7 @@ export class UsersController {
 	@Delete(':email')
 	deleteUser(
 		@Param('email') email: string,
-	): Promise<User | null | undefined> {
+	): Promise<UserDocument | null | undefined> {
 		return this.usersService.delete(email);
 	}
 

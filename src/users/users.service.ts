@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User } from './users.schema';
-import type { UserData } from './users.models';
+import { User, type UserDocument } from './users.schema.js';
+import type { UserData } from './users.models.js';
 
 @Injectable()
 export class UsersService {
@@ -10,7 +10,7 @@ export class UsersService {
 		@InjectModel(User.name) private readonly userModel: Model<User>,
 	) {}
 
-	findByEmail(email: string): Promise<UserData | null> {
+	findByEmail(email: string): Promise<UserDocument | null> {
 		return this.userModel.findOne({ email });
 	}
 

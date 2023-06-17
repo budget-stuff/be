@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { RouterModule } from '@nestjs/core';
-import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { env } from 'process';
-import { UsersModule } from './users/users.module';
-import { OperationsModule } from './operations/operations.module';
-import { CategoriesModule } from './categories/categories.module';
-import { PlanModule } from './plan/plan.module';
+import { AppController } from './app.controller.js';
+import { AppService } from './app.service.js';
+import { AuthModule } from './auth/auth.module.js';
+import { JwtAuthGuard } from './auth/jwt/jwt-auth.guard.js';
+import { CategoriesModule } from './categories/categories.module.js';
+import { OperationsModule } from './operations/operations.module.js';
+import { PlanModule } from './plan/plan.module.js';
+import { UsersModule } from './users/users.module.js';
 import autoPopulate from 'mongoose-autopopulate';
-import { JwtAuthGuard } from './auth/jwt/jwt-auth.guard';
 
 @Module({
 	imports: [

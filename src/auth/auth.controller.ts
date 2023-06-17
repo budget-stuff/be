@@ -1,10 +1,10 @@
 import { Controller, Get, Logger, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthService } from './auth.service';
-import { JwtAuthGuard } from './jwt/jwt-auth.guard';
-import { env } from 'process';
-import { UserData } from 'src/users/users.models';
 import type { FastifyRequest, FastifyReply } from 'fastify';
+import { env } from 'process';
+import type { UserData } from 'src/users/users.models.js';
+import { AuthService } from './auth.service.js';
+import { JwtAuthGuard } from './jwt/jwt-auth.guard.js';
 
 @Controller()
 export class AuthController {

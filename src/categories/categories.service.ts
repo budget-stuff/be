@@ -1,5 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Category, CategoryData, CategoryDocument } from './categories.schema';
+import {
+	Category,
+	type CategoryData,
+	type CategoryDocument,
+} from './categories.schema.js';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 

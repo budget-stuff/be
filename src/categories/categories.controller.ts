@@ -10,10 +10,10 @@ import {
 	Req,
 	UseGuards,
 } from '@nestjs/common';
-import type { CategoryData, CategoryDocument } from './categories.schema';
-import { CategoriesService } from './categories.service';
-import { JwtAuthGuard } from '../../src/auth/jwt/jwt-auth.guard';
 import type { FastifyRequest } from 'fastify';
+import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard.js';
+import type { CategoryData, CategoryDocument } from './categories.schema.js';
+import { CategoriesService } from './categories.service.js';
 
 @Controller()
 export class CategoriesController {

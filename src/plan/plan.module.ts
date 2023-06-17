@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { PlanService } from './plan.service';
-import { PlanController } from './plan.controller';
-import { Plan, PlanSchema } from './plan.schema';
 import { MongooseModule } from '@nestjs/mongoose';
+import { PlanController } from './plan.controller.js';
+import { Plan, PlanSchema } from './plan.schema.js';
+import { PlanService } from './plan.service.js';
 
 @Module({
 	providers: [PlanService],

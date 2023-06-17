@@ -10,10 +10,10 @@ import {
 	Req,
 	UseGuards,
 } from '@nestjs/common';
-import { PlanService } from './plan.service';
-import { PlanData } from './plan.schema';
 import type { FastifyRequest } from 'fastify';
-import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard.js';
+import type { PlanData } from './plan.schema.js';
+import { PlanService } from './plan.service.js';
 
 @Controller()
 export class PlanController {

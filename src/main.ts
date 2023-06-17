@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import {
 	FastifyAdapter,
-	NestFastifyApplication,
+	type NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import fastifyCookie from '@fastify/cookie';
+import { AppModule } from './app.module.js';
 
 const bootstrap = (): Promise<NestFastifyApplication> => {
 	return NestFactory.create<NestFastifyApplication>(
