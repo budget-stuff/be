@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User, UserData } from './users.schema';
+import { User } from './users.schema';
+import type { UserData } from './users.models';
 
 @Injectable()
 export class UsersService {
@@ -14,7 +15,7 @@ export class UsersService {
 	}
 
 	getAll(): Promise<UserData[] | null | undefined> {
-		return this.userModel.find();
+		return this.userModel.find({});
 	}
 
 	create(data: UserData): Promise<User> {

@@ -10,7 +10,7 @@ import {
 	Req,
 	UseGuards,
 } from '@nestjs/common';
-import { CategoryData } from './categories.schema';
+import type { CategoryData, CategoryDocument } from './categories.schema';
 import { CategoriesService } from './categories.service';
 import { JwtAuthGuard } from '../../src/auth/jwt/jwt-auth.guard';
 import type { FastifyRequest } from 'fastify';
@@ -25,7 +25,7 @@ export class CategoriesController {
 	@Post()
 	create(
 		@Req() req: FastifyRequest<{ Body: CategoryData }>,
-	): Promise<CategoryData> {
+	): Promise<CategoryDocument> {
 		return this.categoriesService
 			.create(req.body, req.user?._id)
 			.catch((err) => {
@@ -45,29 +45,29 @@ export class CategoriesController {
 	}
 
 	@UseGuards(JwtAuthGuard)
-	@Get(':id')
+	@Get(':_id')
 	getById(
-		@Param('id') id: string,
+		@Param('_id') _id: string,
 		@Req() req: FastifyRequest,
 	): Promise<CategoryData | null | undefined> {
-		return this.categoriesService.findById(id, req.user._id);
+		return this.categoriesService.findById(_id, req.user._id);
 	}
 
 	@UseGuards(JwtAuthGuard)
-	@Delete(':id')
+	@Delete(':_id')
 	delete(
-		@Param('id') id: string,
+		@Param('_id') _id: string,
 		@Req() req: FastifyRequest,
 	): Promise<CategoryData | null | undefined> {
-		return this.categoriesService.delete(id, req.user._id);
+		return this.categoriesService.delete(_id, req.user._id);
 	}
 
 	@UseGuards(JwtAuthGuard)
-	@Put(':id')
+	@Put(':_id')
 	update(
-		@Param('id') id: string,
+		@Param('_id') _id: string,
 		@Req() req: FastifyRequest<{ Body: CategoryData }>,
 	): Promise<CategoryData | null> {
-		return this.categoriesService.update(req.body, id, req.user._id);
+		return this.categoriesService.update(req.body, _id, req.user._id);
 	}
 }

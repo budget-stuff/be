@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Category, CategoryData } from './categories.schema';
+import { Category, CategoryData, CategoryDocument } from './categories.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -11,8 +11,8 @@ export class CategoriesService {
 		private readonly categoryModel: Model<Category>,
 	) {}
 
-	findById(id: string, owner: string): Promise<CategoryData | null> {
-		return this.categoryModel.findOne({ id, owner });
+	findById(_id: string, owner: string): Promise<CategoryData | null> {
+		return this.categoryModel.findOne({ _id, owner });
 	}
 
 	getAllActive(owner: string): Promise<CategoryData[] | null | undefined> {
@@ -23,14 +23,14 @@ export class CategoriesService {
 		return this.categoryModel.find({ owner });
 	}
 
-	create(data: CategoryData, owner: string): Promise<CategoryData> {
+	create(data: CategoryData, owner: string): Promise<CategoryDocument> {
 		return this.categoryModel.create({ ...data, owner });
 	}
 
-	delete(id: string, owner: string): Promise<CategoryData | undefined> {
+	delete(_id: string, owner: string): Promise<CategoryData | undefined> {
 		return this.categoryModel
 			.findOneAndUpdate(
-				{ id, owner },
+				{ _id, owner },
 				{ status: 'archive' },
 				{ new: true },
 			)
@@ -39,10 +39,10 @@ export class CategoriesService {
 
 	update(
 		data: CategoryData,
-		id: string,
+		_id: string,
 		owner: string,
 	): Promise<CategoryData | null> {
-		return this.categoryModel.findOneAndUpdate({ id, owner }, data, {
+		return this.categoryModel.findOneAndUpdate({ _id, owner }, data, {
 			new: true,
 		});
 	}

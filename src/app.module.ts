@@ -30,6 +30,7 @@ import { JwtAuthGuard } from './auth/jwt/jwt-auth.guard';
 		UsersModule,
 		PlanModule,
 		CategoriesModule,
+		OperationsModule,
 		RouterModule.register([
 			{
 				path: 'api',
@@ -43,12 +44,21 @@ import { JwtAuthGuard } from './auth/jwt/jwt-auth.guard';
 						path: 'categories',
 						module: CategoriesModule,
 					},
+					{
+						path: 'plans',
+						module: PlanModule,
+					},
+					{
+						path: 'operations',
+						module: OperationsModule,
+					},
+					{
+						path: 'users',
+						module: UsersModule,
+					},
 				],
 			},
 		]),
-		OperationsModule,
-		CategoriesModule,
-		PlanModule,
 	],
 	controllers: [AppController],
 	providers: [AppService, JwtAuthGuard],
