@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { type HydratedDocument, SchemaTypes } from 'mongoose';
+import type { PlanCategiryData } from './plan.models.js';
 
 export type PlanDocument = HydratedDocument<Plan>;
 
@@ -29,12 +30,6 @@ export class PlanCategory {
 }
 
 const PlanCategorySchema = SchemaFactory.createForClass(PlanCategory);
-
-export interface PlanCategiryData {
-	category: string;
-	expectedWaste: number;
-	realWaste: number;
-}
 
 @Schema()
 export class Plan {
@@ -67,10 +62,3 @@ export class Plan {
 }
 
 export const PlanSchema = SchemaFactory.createForClass(Plan);
-
-export interface PlanData {
-	month: string;
-	year: string;
-	categories: PlanCategiryData[];
-	owner: string;
-}

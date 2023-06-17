@@ -58,8 +58,8 @@ export class CategoriesController {
 	delete(
 		@Param('_id') _id: string,
 		@Req() req: FastifyRequest,
-	): Promise<CategoryData | null | undefined> {
-		return this.categoriesService.delete(_id, req.user._id);
+	): Promise<CategoryDocument | null | undefined> {
+		return this.categoriesService.archive(_id, req.user._id);
 	}
 
 	@UseGuards(JwtAuthGuard)
@@ -67,7 +67,7 @@ export class CategoriesController {
 	update(
 		@Param('_id') _id: string,
 		@Req() req: FastifyRequest<{ Body: CategoryData }>,
-	): Promise<CategoryData | null> {
+	): Promise<CategoryDocument | null> {
 		return this.categoriesService.update(req.body, _id, req.user._id);
 	}
 }

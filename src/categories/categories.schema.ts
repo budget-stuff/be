@@ -28,6 +28,12 @@ export class Category {
 	status: 'active' | 'archive';
 
 	@Prop({
+		type: String,
+		default: null,
+	})
+	parentId: string | null;
+
+	@Prop({
 		type: SchemaTypes.ObjectId,
 		required: true,
 		ref: 'User',
@@ -43,4 +49,5 @@ export interface CategoryData {
 	type?: 'income' | 'outcome' | 'acc';
 	status?: 'active' | 'archive';
 	owner?: UserData;
+	parentId?: string | null;
 }

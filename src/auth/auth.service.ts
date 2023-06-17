@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import type { UserData } from 'src/users/users.models.js';
 import { UsersService } from '../users/users.service.js';
 import type { LoginData } from './models/login-data.js';
+import type { UserDocument } from 'src/users/users.schema.js';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +21,7 @@ export class AuthService {
 
 		return this.usersService
 			.findByEmail(user.email)
-			.then((registeredUser: UserData | null) => {
+			.then((registeredUser: UserDocument | null) => {
 				if (registeredUser) {
 					const payload = {
 						email: registeredUser.email,
@@ -30,7 +31,7 @@ export class AuthService {
 					return {
 						accessToken: this.jwtService.sign(payload),
 						user: payload,
-					};
+					} as LoginData;
 				}
 
 				return this.registerUser(user);

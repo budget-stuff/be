@@ -1,11 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import {
 	Category,
 	type CategoryData,
 	type CategoryDocument,
 } from './categories.schema.js';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class CategoriesService {
@@ -31,21 +31,19 @@ export class CategoriesService {
 		return this.categoryModel.create({ ...data, owner });
 	}
 
-	delete(_id: string, owner: string): Promise<CategoryData | undefined> {
-		return this.categoryModel
-			.findOneAndUpdate(
-				{ _id, owner },
-				{ status: 'archive' },
-				{ new: true },
-			)
-			.then((val) => val?.toObject<CategoryData>());
+	archive(_id: string, owner: string): Promise<CategoryDocument | undefined> {
+		return this.categoryModel.findOneAndUpdate(
+			{ _id, owner },
+			{ status: 'archive' },
+			{ new: true },
+		);
 	}
 
 	update(
 		data: CategoryData,
 		_id: string,
 		owner: string,
-	): Promise<CategoryData | null> {
+	): Promise<CategoryDocument | null> {
 		return this.categoryModel.findOneAndUpdate({ _id, owner }, data, {
 			new: true,
 		});

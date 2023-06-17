@@ -12,8 +12,9 @@ import {
 } from '@nestjs/common';
 import type { FastifyRequest } from 'fastify';
 import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard.js';
-import type { PlanData } from './plan.schema.js';
+import type { PlanDocument } from './plan.schema.js';
 import { PlanService } from './plan.service.js';
+import type { PlanData } from './plan.models.js';
 
 @Controller()
 export class PlanController {
@@ -61,7 +62,7 @@ export class PlanController {
 	update(
 		@Param('_id') _id: string,
 		@Req() req: FastifyRequest<{ Body: PlanData }>,
-	): Promise<PlanData | null> {
+	): Promise<PlanDocument | null> {
 		return this.planService.update(req.body, _id, req.user._id);
 	}
 }
