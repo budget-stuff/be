@@ -15,7 +15,7 @@ import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard.js';
 import type { FastifyRequest } from 'fastify';
 import type { OperationData, OperationDocument } from './operations.schema.js';
 
-@Controller()
+@Controller('')
 export class OperationsController {
 	private readonly logger = new Logger(OperationsController.name);
 

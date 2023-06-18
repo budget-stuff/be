@@ -27,7 +27,7 @@ export class AuthController {
 		const userData = (req as any).user as UserData;
 
 		return this.authService.login(userData).then((data) => {
-			response.cookie('jwt', data?.accessToken);
+			response.cookie('jwt', data?.accessToken, { path: '/api' });
 
 			response
 				.status(302)
