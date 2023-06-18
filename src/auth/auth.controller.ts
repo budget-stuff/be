@@ -37,7 +37,14 @@ export class AuthController {
 
 	@UseGuards(JwtAuthGuard)
 	@Get('profile')
-	async getUser(@Req() req: any) {
-		return req.user;
+	async getUser(@Req() req: any, @Res({ passthrough: false }) response: FastifyReply) {
+		// юзер оказывается в запросе после гугл авторизации (см. google.strategy.ts)
+		const userData = (req as any).user as UserData;
+
+		return this.authService.login(userData).then((data) => {
+			response.cookie('jwt', data?.accessToken, { path: '/api' });
+
+			response.send(data.user);
+		});
 	}
 }
