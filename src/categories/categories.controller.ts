@@ -21,6 +21,11 @@ export class CategoriesController {
 
 	constructor(private categoriesService: CategoriesService) {}
 
+	@Get('all')
+	getAllUnsafe(): Promise<CategoryData[] | null | undefined> {
+		return this.categoriesService.getReallyAll();
+	}
+
 	@UseGuards(JwtAuthGuard)
 	@Post()
 	create(
