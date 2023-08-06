@@ -3,13 +3,13 @@ import { Plan, type PlanDocument } from './plan.schema.js';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import type { PlanData } from './plan.models.js';
+import type { OperationData } from 'src/operations/operations.schema.js';
 
 @Injectable()
 export class PlanService {
 	private readonly logger = new Logger(PlanService.name);
 	constructor(
-		@InjectModel(Plan.name)
-		private readonly planModel: Model<Plan>,
+		@InjectModel(Plan.name) private readonly planModel: Model<Plan>,
 	) {}
 
 	findById(_id: string, owner: string): Promise<PlanDocument | null> {

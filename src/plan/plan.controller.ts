@@ -35,7 +35,6 @@ export class PlanController {
 	@UseGuards(JwtAuthGuard)
 	@Get()
 	getAll(@Req() req: FastifyRequest): Promise<PlanData[] | null | undefined> {
-		this.logger.log(req.user);
 		return this.planService.getAll(req.user._id);
 	}
 

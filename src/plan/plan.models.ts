@@ -1,12 +1,14 @@
+import type { CategoryData } from "../categories/categories.schema.js";
+
 export interface PlanCategiryData {
-	category: string;
+	category: CategoryData;
 	expectedWaste: number;
 	realWaste: number;
 }
 
 export interface PlanData {
-	month: string;
-	year: string;
+	month: number;
+	year: number;
 	categories: PlanCategiryData[];
 	owner: string;
 }

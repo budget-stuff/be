@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { type HydratedDocument, SchemaTypes } from 'mongoose';
 
 import type { UserData } from '../users/users.models.js';
+import type { CategoryData } from 'src/categories/categories.schema.js';
 
 export type OperationDocument = HydratedDocument<Operation>;
 
@@ -34,15 +35,18 @@ export class Operation {
 	date: string;
 
 	@Prop({
-		type: String,
-		default: null,
+		type: SchemaTypes.ObjectId,
+		required: true,
+		ref: 'Category',
+		autopopulate: true,
 	})
-	categoryId: string | null;
+	category: CategoryData;
 
 	@Prop({
 		type: SchemaTypes.ObjectId,
 		required: true,
 		ref: 'User',
+		autopopulate: true,
 	})
 	owner: UserData;
 }
@@ -55,5 +59,5 @@ export interface OperationData {
 	amount: number;
 	date?: string;
 	owner?: UserData;
-	categoryId?: string | null;
+	category: CategoryData;
 }

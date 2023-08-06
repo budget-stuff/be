@@ -6,7 +6,7 @@ import { PlanService } from './plan.service.js';
 
 @Module({
 	providers: [PlanService],
-	exports: [PlanService],
+	exports: [PlanService, MongooseModule],
 	imports: [
 		MongooseModule.forFeature([{ name: Plan.name, schema: PlanSchema }]),
 	],

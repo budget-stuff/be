@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { type HydratedDocument, SchemaTypes } from 'mongoose';
 import type { PlanCategiryData } from './plan.models.js';
+import type { CategoryData } from '../categories/categories.schema.js';
 
 export type PlanDocument = HydratedDocument<Plan>;
 
@@ -12,7 +13,7 @@ export class PlanCategory {
 		ref: 'Category',
 		autopopulate: true,
 	})
-	category: string;
+	category: CategoryData;
 
 	@Prop({
 		type: Number,
@@ -34,18 +35,18 @@ const PlanCategorySchema = SchemaFactory.createForClass(PlanCategory);
 @Schema()
 export class Plan {
 	@Prop({
-		type: String,
+		type: Number,
 		required: true,
 		default: new Date().getMonth(),
 	})
-	month: string;
+	month: number;
 
 	@Prop({
-		type: String,
+		type: Number,
 		required: true,
 		default: new Date().getFullYear(),
 	})
-	year: string;
+	year: number;
 
 	@Prop({
 		type: [PlanCategorySchema],
