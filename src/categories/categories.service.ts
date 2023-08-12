@@ -14,10 +14,6 @@ export class CategoriesService {
 		@InjectModel(Category.name)
 		private readonly categoryModel: Model<Category>,
 	) { }
-	
-	getReallyAll(): Promise<CategoryData[] | null | undefined> {
-		return this.categoryModel.find({});
-	}
 
 	findById(_id: string, owner: string): Promise<CategoryData | null> {
 		return this.categoryModel.findOne({ _id, owner });

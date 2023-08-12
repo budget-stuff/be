@@ -21,11 +21,6 @@ export class CategoriesController {
 
 	constructor(private categoriesService: CategoriesService) {}
 
-	@Get('all')
-	getAllUnsafe(): Promise<CategoryData[] | null | undefined> {
-		return this.categoriesService.getReallyAll();
-	}
-
 	@UseGuards(JwtAuthGuard)
 	@Post()
 	create(
@@ -42,10 +37,17 @@ export class CategoriesController {
 
 	@UseGuards(JwtAuthGuard)
 	@Get()
+	getAllActive(
+		@Req() req: FastifyRequest,
+	): Promise<CategoryData[] | null | undefined> {
+		return this.categoriesService.getAllActive(req.user._id);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Get('all')
 	getAll(
 		@Req() req: FastifyRequest,
 	): Promise<CategoryData[] | null | undefined> {
-		this.logger.log(req.user);
 		return this.categoriesService.getAll(req.user._id);
 	}
 
