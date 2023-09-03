@@ -29,16 +29,27 @@ export class Operation {
 	amount: number;
 
 	@Prop({
-		type: String,
-		default: new Date().toISOString(),
+		type: Number,
+		default: new Date().getTime(),
 	})
-	date: string;
+	timestamp: number;
+
+	@Prop({
+		type: Number,
+		default: new Date().getMonth(),
+	})
+	month: number;
+
+	@Prop({
+		type: Number,
+		default: new Date().getFullYear(),
+	})
+	year: number;
 
 	@Prop({
 		type: SchemaTypes.ObjectId,
 		required: true,
-		ref: 'Category',
-		autopopulate: true,
+		ref: 'Category'
 	})
 	category: CategoryData;
 
@@ -57,7 +68,9 @@ export interface OperationData {
 	comment?: string;
 	type?: 'income' | 'outcome';
 	amount: number;
-	date?: string;
+	timestamp?: number;
 	owner?: UserData;
 	category: CategoryData;
+	month: number;
+	year: number;
 }

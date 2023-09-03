@@ -3,7 +3,6 @@ import type { CategoryData } from "../categories/categories.schema.js";
 export interface PlanCategiryData {
 	category: CategoryData;
 	expectedWaste: number;
-	realWaste: number;
 }
 
 export interface PlanData {

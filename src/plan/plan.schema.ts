@@ -11,7 +11,6 @@ export class PlanCategory {
 		required: true,
 		type: SchemaTypes.ObjectId,
 		ref: 'Category',
-		autopopulate: true,
 	})
 	category: CategoryData;
 
@@ -21,13 +20,6 @@ export class PlanCategory {
 		default: 0,
 	})
 	expectedWaste: number;
-
-	@Prop({
-		type: Number,
-		required: true,
-		default: 0,
-	})
-	realWaste: number;
 }
 
 const PlanCategorySchema = SchemaFactory.createForClass(PlanCategory);
